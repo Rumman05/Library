@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        #new-book-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            transition: background-color 0.2s ease;
+        }
+        
+        #new-book-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        dialog {
+            padding: 32px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 480px;
+            background: white;
+            font-family: inherit;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        dialog h2 {
+            color: #2c3e50;
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        form input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        form input[type="checkbox"] {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .form-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        form button {
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        
+        form button[type="submit"] {
+            background-color: #3498db;
+            color: white;
+        }
+
+        form button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        
+        form button[type="button"] {
+            background-color: #95a5a6;
+            color: white;
+        }
+
+        form button[type="button"]:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .library-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        
+        .book-card {
+            background: white;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .book-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .book-card h3 {
+            margin-bottom: 12px;
+            color: #2c3e50;
+            font-size: 1.25rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .book-card p {
+            margin: 8px 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .book-card p strong {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .book-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .toggle-read-btn, .delete-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid;
+            border-radius: 4px;
+            background: white;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-read-btn {
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .toggle-read-btn:hover {
+            background: #27ae60;
+            color: white;
+        }
+
+        .delete-btn {
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .delete-btn:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-read {
+            background: #d5e8d4;
+            color: #2d5016;
+        }
+
+        .status-unread {
+            background: #fce4e4;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            dialog {
+                width: calc(100vw - 32px);
+                padding: 24px;
+            }
+            
+            .library-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Library</h1>
+        
+        <button id="new-book-btn">New Book</button>
+        
+        <dialog id="book-dialog">
+            <h2>Add New Book</h2>
+            <form id="book-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" required>
+                
+                <label for="author">Author:</label>
+                <input type="text" id="author" required>
+                
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" required>
+                
+                <div class="checkbox-container">
+                    <input type="checkbox" id="read">
+                    <label for="read">Read</label>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="button" id="cancel-btn">Cancel</button>
+                    <button type="submit">Add Book</button>
+                </div>
+            </form>
+        </dialog>
+        
+        <div class="library-container"></div>
+    </div>
+    
+    <script>
+        const myLibrary = [];
+
+        function Book(title, author, pages, read) {
+            this.id = crypto.randomUUID();
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;
+        }
+
+        function addBookToLibrary(title, author, pages, read) {
+            const newBook = new Book(title, author, pages, read);
+            myLibrary.push(newBook);
+        }
+
+        function displayBooks() {
+            const container = document.querySelector('.library-container');
+            container.innerHTML = '';
+
+            for (let i = 0; i < myLibrary.length; i++) {
+                const book = myLibrary[i];
+                
+                const bookCard = document.createElement('div');
+                bookCard.className = "book-card";
+                
+                const title = document.createElement('h3');
+                title.textContent = book.title;
+                
+                const author = document.createElement('p');
+                const authorStrong = document.createElement('strong');
+                authorStrong.textContent = 'Author: ';
+                author.appendChild(authorStrong);
+                author.appendChild(document.createTextNode(book.author));
+                
+                const pages = document.createElement('p');
+                const pagesStrong = document.createElement('strong');
+                pagesStrong.textContent = 'Pages: ';
+                pages.appendChild(pagesStrong);
+                pages.appendChild(document.createTextNode(book.pages));
+                
+                const status = document.createElement('p');
+                const statusStrong = document.createElement('strong');
+                statusStrong.textContent = 'Status: ';
+                status.appendChild(statusStrong);
+                
+                const statusBadge = document.createElement('span');
+                statusBadge.className = book.read ? 'status-badge status-read' : 'status-badge status-unread';
+                statusBadge.textContent = book.read ? 'Read' : 'Not Read';
+                status.appendChild(statusBadge);
+                
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = 'book-buttons';
+                
+                const toggleButton = document.createElement('button');
+                toggleButton.className = 'toggle-read-btn';
+                toggleButton.textContent = 'Toggle Read';
+                toggleButton.onclick = function() {
+                    book.read = !book.read;
+                    displayBooks();
+                };
+                
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-btn';
+                deleteButton.textContent = 'Delete';
+                deleteButton.onclick = function() {
+                    for (let j = 0; j < myLibrary.length; j++) {
+                        if (myLibrary[j].id === book.id) {
+                            myLibrary.splice(j, 1);
+                            break;
+                        }
+                    }
+                    displayBooks();
+                };
+                
+                buttonContainer.appendChild(toggleButton);
+                buttonContainer.appendChild(deleteButton);
+                
+                bookCard.appendChild(title);
+                bookCard.appendChild(author);
+                bookCard.appendChild(pages);
+                bookCard.appendChild(status);
+                bookCard.appendChild(buttonContainer);
+                
+                container.appendChild(bookCard);
+            }
+        }
+
+        function openDialog() {
+            document.getElementById('book-dialog').showModal();
+        }
+
+        function closeDialog() {
+            document.getElementById('book-dialog').close();
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const pages = parseInt(document.getElementById('pages').value);
+            const read = document.getElementById('read').checked;
+            
+            addBookToLibrary(title, author, pages, read);
+            displayBooks();
+            
+            document.getElementById('book-form').reset();
+            closeDialog();
+        }
+
+        document.getElementById('new-book-btn').onclick = openDialog;
+        document.getElementById('cancel-btn').onclick = closeDialog;
+        document.getElementById('book-form').onsubmit = handleFormSubmit;
+
+        addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, true);
+        addBookToLibrary("1984", "George Orwell", 328, false);
+        addBookToLibrary("Pride and Prejudice", "Jane Austen", 432, true);
+
+        displayBooks();
+    </script>
+</body>
+</html>
