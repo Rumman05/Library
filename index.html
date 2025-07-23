@@ -6,63 +6,70 @@
     <title>Library</title>
     <style>
 
+        /* Imports the 'Space Mono' font from Google Fonts for a distinct look. */
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 
+        /* Basic styles for the entire page. */
         body {
             margin: 0;
             padding: 0;
             background: #fefefe;
-            font-family: 'Space Mono', monospace;
+            font-family: 'Space Mono', monospace; /* Sets the default font for the app. */
         }
 
+        /* This is the main grid container that will hold all the book cards. */
         #library-container {
             display: grid;
+            /* Creates a responsive grid that fits as many columns as possible, with a minimum width of 320px each. */
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 30px; /* Space between the book cards. */
             padding: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+            max-width: 1200px; /* Limits the maximum width of the library for larger screens. */
+            margin: 0 auto; /* Centers the container horizontally. */
         }
 
+        /* Styles for the "Add New Book" button in the header. */
         #add-book-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            background: #ff006e;
+            padding: 10px 25px;
+            background: #ff006e; /* Vibrant pink background. */
             color: #fff;
             border: 3px solid #000;
-            box-shadow: 4px 4px 0 #000;
+            box-shadow: 4px 4px 0 #000; /* Creates a retro, 3D effect. */
             font-family: 'Space Mono', monospace;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            cursor: pointer; /* Changes the cursor to a pointer on hover. */
+            transition: all 0.2s ease; /* Smooth transition for hover effects. */
+            text-transform: uppercase;
         }
 
+        /* Hover effect for the "Add New Book" button. */
         #add-book-btn:hover {
             background: #fff;
             color: #ff006e;
             border: 3px solid #ff006e;
-            box-shadow: none;
+            box-shadow: none; /* Removes the shadow to create a "pressed" effect. */
         }
 
+        /* Main styling for an individual book card. */
         .book-card {
             width: 320px;
             background: #ffffff;
             border: 4px solid #000000;
-            box-shadow: 8px 8px 0 #000;
-            margin: 0 auto;
+            box-shadow: 8px 8px 0 #000; /* Larger shadow for a pronounced 3D effect. */
+            margin: 0 auto; /* Centers the card within its grid cell. */
         }
 
+        /* The top yellow section of the book card. */
         .book-card .upper-container {
             height: 100px;
-            background: #ffe600;
+            background: #ffe600; /* Bright yellow background. */
             border-bottom: 4px solid #000;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: center; /* Centers the book icon horizontally. */
+            align-items: center;   /* Centers the book icon vertically. */
         }
 
+        /* The book emoji icon container. */
         .book-card .book-icon {
             width: 60px;
             height: 60px;
@@ -75,11 +82,13 @@
             font-weight: bold;
         }
 
+        /* The bottom white section of the book card containing text details. */
         .book-card .lower-container {
             padding: 30px 20px;
             text-align: center;
         }
 
+        /* Styles for the book's title. */
         .book-card .book-title {
             margin: 0 0 10px 0;
             font-size: 18px;
@@ -88,6 +97,7 @@
             text-align: center;
         }
 
+        /* Styles for the book's author. */
         .book-card .book-author {
             margin: 5px 0 15px;
             font-size: 14px;
@@ -96,10 +106,11 @@
             text-align: center;
         }
 
+        /* Styles for the optional book description box. */
         .book-card .book-description {
             font-size: 14px;
             color: #000;
-            border: 2px dashed #000;
+            border: 2px dashed #000; /* Dashed border for a distinct look. */
             padding: 10px;
             background: #f0f0f0;
             margin: 15px 0;
@@ -107,17 +118,7 @@
             line-height: 1.4;
         }
 
-        .book-card .book-pages {
-            font-size: 12px;
-            color: #000;
-            font-weight: bold;
-            text-align: center;
-            padding: 8px;
-            background: #333;
-            color: #fff;
-            margin-top: 0;
-        }
-
+        /* Style for the "Read" / "Not Read" status text. */
         .book-card .book-read {
             font-size: 14px;
             color: #000;
@@ -128,7 +129,19 @@
             background: #ffe600;
             border: 2px solid #000;
         }
-
+        
+        /* The strip at the bottom of the card showing the page count. */
+        .book-card .book-pages {
+            font-size: 12px;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            background: #333; /* Dark background for contrast. */
+            margin-top: 0;
+        }
+        
+        /* Styles for the dialog box (modal) used to add a new book. */
         #book-dialog {
             border: 4px solid #000;
             box-shadow: 12px 12px 0 #000;
@@ -136,14 +149,16 @@
             font-family: 'Space Mono', monospace;
             padding: 0;
             width: 400px;
-            max-width: 90vw;
-            border-radius: 0;
+            max-width: 90vw; /* Ensures the dialog doesn't exceed 90% of the viewport width. */
+            border-radius: 0; /* Sharp corners to match the overall aesthetic. */
         }
 
+        /* Styles the backdrop (the dark overlay) behind the modal. */
         #book-dialog::backdrop {
             background: rgba(0, 0, 0, 0.7);
         }
 
+        /* The header section of the dialog box. */
         .dialog-header {
             background: #ffe600;
             padding: 20px;
@@ -158,13 +173,15 @@
             letter-spacing: 1px;
         }
 
+        /* The main content area of the dialog with the form fields. */
         .dialog-content {
             padding: 30px;
         }
 
+        /* General styles for input fields and textareas in the dialog. */
         #book-dialog input,
         #book-dialog textarea {
-            width: calc(100% - 20px);
+            width: calc(100% - 20px); /* Full width minus padding. */
             padding: 12px;
             margin: 8px 0;
             border: 3px solid #000;
@@ -173,12 +190,14 @@
             font-size: 14px;
         }
 
+        /* Style for when an input field is focused (clicked on). */
         #book-dialog input:focus,
         #book-dialog textarea:focus {
             outline: none;
-            background: #ffe600;
+            background: #ffe600; /* Changes background to yellow on focus. */
         }
 
+        /* Styles for the checkbox label. */
         #book-dialog label {
             display: flex;
             align-items: center;
@@ -186,12 +205,14 @@
             font-weight: bold;
             gap: 10px;
         }
-
+        
+        /* Specific style for the checkbox input itself. */
         #book-dialog input[type="checkbox"] {
-            width: auto;
+            width: auto; /* Overrides the general input width. */
             margin: 0;
         }
 
+        /* Container for the dialog buttons. */
         .dialog-buttons {
             display: flex;
             gap: 10px;
@@ -199,6 +220,7 @@
             margin-top: 20px;
         }
 
+        /* General styles for buttons inside the dialog. */
         #book-dialog button {
             padding: 12px 20px;
             background: #ff006e;
@@ -211,7 +233,8 @@
             transition: all 0.2s ease;
             text-transform: uppercase;
         }
-
+        
+        /* Hover effect for dialog buttons. */
         #book-dialog button:hover {
             background: #fff;
             color: #ff006e;
@@ -219,6 +242,7 @@
             box-shadow: none;
         }
 
+        /* Specific styles for the "Cancel" button. */
         #cancel-book {
             background: #333 !important;
             color: #fff !important;
@@ -230,20 +254,21 @@
             border: 3px solid #333 !important;
         }
 
+        /* Style for the "Remove Book" button on each card. */
         .remove-button {
             width: 100%;
             padding: 10px;
             background: #ff006e;
             color: #fff;
             border: 3px solid #000;
-            box-shadow: 4px 4px 0 #000;
             font-family: 'Space Mono', monospace;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.2s ease;
-            margin-top: 0;
+            margin-top: 0; /* Ensures no extra space above this button. */
         }
-
+        
+        /* Hover effect for the remove button. */
         .remove-button:hover {
             background: #fff;
             color: #ff006e;
@@ -251,19 +276,21 @@
             box-shadow: none;
         }
 
+        /* The main header at the top of the page. */
         header {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Pushes the title and button to opposite ends. */
             align-items: center;
             padding: 20px 40px;
             background: #ffffff;
             border-bottom: 4px solid #000;
             box-shadow: 0 4px 0 #000;
-            position: sticky;
+            position: sticky; /* Makes the header stick to the top when scrolling. */
             top: 0;
-            z-index: 100;
+            z-index: 100; /* Ensures the header stays above other content. */
         }
 
+        /* Style for the main library title in the header. */
         #library-title {
             margin: 0;
             font-size: 28px;
@@ -272,34 +299,14 @@
             text-transform: uppercase;
             letter-spacing: 2px;
         }
-
-        #add-book-btn {
-            padding: 10px 25px;
-            background: #ff006e;
-            color: #fff;
-            border: 3px solid #000;
-            box-shadow: 4px 4px 0 #000;
-            font-family: 'Space Mono', monospace;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-        }
-
-        #add-book-btn:hover {
-            background: #fff;
-            color: #ff006e;
-            border: 3px solid #ff006e;
-            box-shadow: none;
-        }
-
+        
+        /* Style for the button to toggle the read status on each card. */
         .toggle-read-button {
             width: 100%;
             padding: 10px;
             background: #ffe600;
             color: #000;
             border: 3px solid #000;
-            box-shadow: 4px 4px 0 #000;
             font-family: 'Space Mono', monospace;
             font-weight: bold;
             cursor: pointer;
@@ -308,18 +315,13 @@
             text-transform: uppercase;
         }
 
+        /* Hover effect for the toggle read button. */
         .toggle-read-button:hover {
             background: #000;
             color: #ffe600;
             border: 3px solid #ffe600;
             box-shadow: none;
         }
-
-        /* Update button spacing */
-        .book-card .remove-button {
-            margin-top: 0;
-        }
-
     </style>
 </head>
 <body>
@@ -328,8 +330,6 @@
         <h1 id="library-title">My Personal Library</h1>
         <button id="add-book-btn">Add New Book</button>
     </header>
-
-    <button id="add-book-btn">Add New Book</button>
 
     <dialog id="book-dialog">
         <div class="dialog-header">
@@ -355,12 +355,24 @@
     
     <script>
 
+        // Get references to key HTML elements.
         const dialog = document.getElementById('book-dialog');
         const container = document.getElementById('library-container');
+        
+        // The main array that will hold all book objects.
         const myLibrary = [];
 
+        /**
+         * The constructor function for creating Book objects.
+         * @param {string} id - A unique identifier.
+         * @param {string} title - The title of the book.
+         * @param {string} author - The author of the book.
+         * @param {number} pages - The number of pages in the book.
+         * @param {boolean} read - Whether the book has been read.
+         * @param {string} description - An optional description of the book.
+         */
         function Book(id, title, author, pages, read, description = '') {
-            this.id = crypto.randomUUID();
+            this.id = crypto.randomUUID(); // Generates a unique ID for each book.
             this.title = title;
             this.author = author;
             this.pages = pages;
@@ -368,39 +380,56 @@
             this.description = description;
         }
 
+        // A method added to the Book's prototype to toggle its read status.
+        // Using a prototype is memory-efficient as this function is shared by all Book objects.
         Book.prototype.toggleReadStatus = function() {
             this.read = !this.read;
         };
 
+        /**
+         * Creates a new Book object and adds it to the myLibrary array.
+         * @param {string} title - The title of the book.
+         * @param {string} author - The author of the book.
+         * @param {number} pages - The number of pages.
+         * @param {boolean} read - The read status.
+         * @param {string} description - The book's description.
+         * @returns {Book} The newly created book object.
+         */
         function addBookToLibrary(title, author, pages, read, description = ''){
             const newBook = new Book(null, title, author, pages, read, description);
             myLibrary.push(newBook);
-            saveToLocalStorage(); // Save after adding
+            saveToLocalStorage(); // Save the updated library to local storage.
             return newBook;
         }
 
+        /**
+         * Renders the entire library to the screen. It clears the current display
+         * and rebuilds it from the myLibrary array.
+         */
         function displayLibrary() {
+            // Clear any existing book cards from the container.
             while (container.firstChild) {
                 container.removeChild(container.firstChild);
             }
             
+            // Loop through each book in the myLibrary array.
             for (let i = 0; i < myLibrary.length; i++){
                 const book = myLibrary[i];
 
+                // Create the main card element.
                 const card = document.createElement('div');
                 card.className = 'book-card';
 
-                // Upper container with book icon
+                // Create the upper part of the card with the icon.
                 const upperContainer = document.createElement('div');
                 upperContainer.className = 'upper-container';
-                
                 const bookIcon = document.createElement('div');
                 bookIcon.className = 'book-icon';
                 bookIcon.textContent = '📚';
                 upperContainer.appendChild(bookIcon);
                 card.appendChild(upperContainer);
 
-                // Lower container with book info
+                // Create the lower part of the card with book details.
                 const lowerContainer = document.createElement('div');
                 lowerContainer.className = 'lower-container';
 
@@ -414,7 +443,7 @@
                 author.textContent = 'by ' + book.author;
                 lowerContainer.appendChild(author);
 
-                // Description in the dashed box (if it exists)
+                // Only add a description element if one exists.
                 if (book.description && book.description.trim()) {
                     const description = document.createElement('p');
                     description.className = 'book-description';
@@ -434,90 +463,111 @@
                 pages.textContent = book.pages + ' pages';
                 card.appendChild(pages);
 
-                // Toggle read status button
+                // Create the "Mark as Read/Unread" button.
                 const toggleBtn = document.createElement('button');
                 toggleBtn.className = 'toggle-read-button';
                 toggleBtn.textContent = book.read ? 'Mark as Unread' : 'Mark as Read';
                 card.appendChild(toggleBtn);
 
-                // Remove button
+                // Create the "Remove Book" button.
                 const removebtn = document.createElement('button');
                 removebtn.className = 'remove-button';
                 removebtn.textContent = 'Remove Book';
                 card.appendChild(removebtn);
 
+                // Add the fully constructed card to the main library container.
                 container.appendChild(card);
 
+                // Add an event listener to the toggle button.
                 toggleBtn.addEventListener('click', () => {
                     book.toggleReadStatus();
-                    saveToLocalStorage(); // Save after toggling
-                    displayLibrary();
+                    saveToLocalStorage(); // Save the change.
+                    displayLibrary(); // Re-render the library to show the update.
                 });
 
-                // Update remove book event listener
+                // Add an event listener to the remove button.
                 removebtn.addEventListener('click', () => {
+                    // Find the index of the book to remove using its unique ID.
                     const bookIndex = myLibrary.findIndex(b => b.id === book.id);
                     if (bookIndex > -1) {
-                        myLibrary.splice(bookIndex, 1);
-                        saveToLocalStorage(); 
+                        myLibrary.splice(bookIndex, 1); // Remove the book from the array.
+                        saveToLocalStorage(); // Save the change.
                     }
-                    displayLibrary();
+                    displayLibrary(); // Re-render the library.
                 });
             }
         }
 
+        /**
+         * Clears all input fields in the "Add New Book" dialog form.
+         */
         function clearForm() {
             document.getElementById('book-title').value = '';
             document.getElementById('book-author').value = '';
             document.getElementById('book-pages').value = '';
             document.getElementById('book-read').checked = false;
-            document.getElementById('book-description').value = ''; // Add this line
+            document.getElementById('book-description').value = '';
         }
 
+        // Event listener for the main "Add New Book" button in the header.
         document.getElementById('add-book-btn').addEventListener('click', function() {
-            dialog.showModal();
+            dialog.showModal(); // Opens the dialog box.
         })
 
-
+        // Event listener for the "Add Book" button inside the dialog.
         document.getElementById('submit-book').addEventListener('click', function() {
+            // Get values from the form fields.
             const title = document.getElementById('book-title').value;
             const author = document.getElementById('book-author').value;
             const pages = document.getElementById('book-pages').value;
             const read = document.getElementById('book-read').checked;
-            const description = document.getElementById('book-description').value; // Add this line
+            const description = document.getElementById('book-description').value;
 
-            addBookToLibrary(title, author, pages, read, description); // Pass description
+            // Add the new book to the library.
+            addBookToLibrary(title, author, pages, read, description);
 
+            // Update the display, close the dialog, and clear the form.
             displayLibrary();
             dialog.close();
             clearForm();
         });
 
+        // Event listener for the "Cancel" button in the dialog.
         document.getElementById('cancel-book').addEventListener('click', function() {
-            dialog.close();
-            clearForm();
+            dialog.close(); // Closes the dialog.
+            clearForm(); // Clears the form.
         })
 
+        /**
+         * Saves the current myLibrary array to the browser's local storage.
+         * JSON.stringify is used to convert the array of objects into a string.
+         */
         function saveToLocalStorage() {
             localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
         }
 
+        /**
+         * Loads the library from local storage when the page loads.
+         */
         function loadFromLocalStorage() {
             const savedBooks = localStorage.getItem('myLibrary');
             if (savedBooks) {
                 const parsedBooks = JSON.parse(savedBooks);
-                // Recreate Book objects with their prototype methods
-                myLibrary.length = 0; // Clear the current array
+                // Clear the current array to avoid duplicates.
+                myLibrary.length = 0; 
+                // Loop through the saved data.
                 parsedBooks.forEach(bookData => {
+                    // Re-create Book objects to ensure they have the prototype methods (like toggleReadStatus).
                     const book = new Book(null, bookData.title, bookData.author, bookData.pages, bookData.read, bookData.description);
-                    book.id = bookData.id; // Preserve the original ID
+                    book.id = bookData.id; // Preserve the original unique ID.
                     myLibrary.push(book);
                 });
             }
         }
 
-        loadFromLocalStorage();
-        displayLibrary();
+        // Initial actions when the script runs:
+        loadFromLocalStorage(); // Load any saved books.
+        displayLibrary(); // Display the loaded books on the page.
 
     </script>
 
