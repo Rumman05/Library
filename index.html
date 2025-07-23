@@ -5,413 +5,521 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #fefefe;
+            font-family: 'Space Mono', monospace;
         }
 
-        .container {
+        #library-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 40px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        #new-book-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 30px;
-            transition: background-color 0.2s ease;
-        }
-        
-        #new-book-btn:hover {
-            background-color: #2980b9;
-        }
-        
-        dialog {
-            padding: 32px;
-            border: none;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            width: 480px;
-            background: white;
-            font-family: inherit;
+        #add-book-btn {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        dialog::backdrop {
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        dialog h2 {
-            color: #2c3e50;
-            margin-bottom: 24px;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        
-        form label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-            color: #555;
-            font-size: 14px;
-        }
-        
-        form input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 16px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            font-family: inherit;
-        }
-
-        form input:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-        }
-        
-        form input[type="checkbox"] {
-            width: auto;
-            margin-right: 8px;
-        }
-
-        .checkbox-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        
-        .form-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-        }
-
-        form button {
-            padding: 10px 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #ff006e;
+            color: #fff;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
             cursor: pointer;
-            font-weight: 500;
-            font-size: 14px;
-            font-family: inherit;
-        }
-        
-        form button[type="submit"] {
-            background-color: #3498db;
-            color: white;
-        }
-
-        form button[type="submit"]:hover {
-            background-color: #2980b9;
-        }
-        
-        form button[type="button"] {
-            background-color: #95a5a6;
-            color: white;
-        }
-
-        form button[type="button"]:hover {
-            background-color: #7f8c8d;
-        }
-        
-        .library-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-        }
-        
-        .book-card {
-            background: white;
-            border: 1px solid #e1e8ed;
-            border-radius: 8px;
-            padding: 24px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.2s ease;
-        }
-
-        .book-card:hover {
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        .book-card h3 {
-            margin-bottom: 12px;
-            color: #2c3e50;
-            font-size: 1.25rem;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-        
-        .book-card p {
-            margin: 8px 0;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .book-card p strong {
-            color: #333;
-            font-weight: 500;
-        }
-
-        .book-buttons {
-            display: flex;
-            gap: 8px;
-            margin-top: 16px;
-        }
-
-        .toggle-read-btn, .delete-btn {
-            flex: 1;
-            padding: 8px 12px;
-            border: 1px solid;
-            border-radius: 4px;
-            background: white;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 12px;
             transition: all 0.2s ease;
         }
 
-        .toggle-read-btn {
-            border-color: #27ae60;
-            color: #27ae60;
+        #add-book-btn:hover {
+            background: #fff;
+            color: #ff006e;
+            border: 3px solid #ff006e;
+            box-shadow: none;
         }
 
-        .toggle-read-btn:hover {
-            background: #27ae60;
-            color: white;
+        .book-card {
+            width: 320px;
+            background: #ffffff;
+            border: 4px solid #000000;
+            box-shadow: 8px 8px 0 #000;
+            margin: 0 auto;
         }
 
-        .delete-btn {
-            border-color: #e74c3c;
-            color: #e74c3c;
+        .book-card .upper-container {
+            height: 100px;
+            background: #ffe600;
+            border-bottom: 4px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .delete-btn:hover {
-            background: #e74c3c;
-            color: white;
+        .book-card .book-icon {
+            width: 60px;
+            height: 60px;
+            background: #ffffff;
+            border: 4px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 500;
+        .book-card .lower-container {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .book-card .book-title {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+        }
+
+        .book-card .book-author {
+            margin: 5px 0 15px;
+            font-size: 14px;
+            color: #333;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        .book-card .book-description {
+            font-size: 14px;
+            color: #000;
+            border: 2px dashed #000;
+            padding: 10px;
+            background: #f0f0f0;
+            margin: 15px 0;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        .book-card .book-pages {
+            font-size: 12px;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            background: #333;
+            color: #fff;
+            margin-top: 0;
+        }
+
+        .book-card .book-read {
+            font-size: 14px;
+            color: #000;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0 0 0;
+            padding: 8px;
+            background: #ffe600;
+            border: 2px solid #000;
+        }
+
+        #book-dialog {
+            border: 4px solid #000;
+            box-shadow: 12px 12px 0 #000;
+            background: #ffffff;
+            font-family: 'Space Mono', monospace;
+            padding: 0;
+            width: 400px;
+            max-width: 90vw;
+            border-radius: 0;
+        }
+
+        #book-dialog::backdrop {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .dialog-header {
+            background: #ffe600;
+            padding: 20px;
+            border-bottom: 4px solid #000;
+            text-align: center;
+        }
+
+        .dialog-header h2 {
+            margin: 0;
+            font-size: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
 
-        .status-read {
-            background: #d5e8d4;
-            color: #2d5016;
+        .dialog-content {
+            padding: 30px;
         }
 
-        .status-unread {
-            background: #fce4e4;
-            color: #721c24;
+        #book-dialog input,
+        #book-dialog textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 8px 0;
+            border: 3px solid #000;
+            font-family: 'Space Mono', monospace;
+            background: #fefefe;
+            font-size: 14px;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            dialog {
-                width: calc(100vw - 32px);
-                padding: 24px;
-            }
-            
-            .library-container {
-                grid-template-columns: 1fr;
-            }
+        #book-dialog input:focus,
+        #book-dialog textarea:focus {
+            outline: none;
+            background: #ffe600;
         }
+
+        #book-dialog label {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            font-weight: bold;
+            gap: 10px;
+        }
+
+        #book-dialog input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .dialog-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        #book-dialog button {
+            padding: 12px 20px;
+            background: #ff006e;
+            color: #fff;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        #book-dialog button:hover {
+            background: #fff;
+            color: #ff006e;
+            border: 3px solid #ff006e;
+            box-shadow: none;
+        }
+
+        #cancel-book {
+            background: #333 !important;
+            color: #fff !important;
+        }
+
+        #cancel-book:hover {
+            background: #fff !important;
+            color: #333 !important;
+            border: 3px solid #333 !important;
+        }
+
+        .remove-button {
+            width: 100%;
+            padding: 10px;
+            background: #ff006e;
+            color: #fff;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0;
+        }
+
+        .remove-button:hover {
+            background: #fff;
+            color: #ff006e;
+            border: 3px solid #ff006e;
+            box-shadow: none;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #ffffff;
+            border-bottom: 4px solid #000;
+            box-shadow: 0 4px 0 #000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        #library-title {
+            margin: 0;
+            font-size: 28px;
+            font-weight: bold;
+            color: #000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #add-book-btn {
+            padding: 10px 25px;
+            background: #ff006e;
+            color: #fff;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        #add-book-btn:hover {
+            background: #fff;
+            color: #ff006e;
+            border: 3px solid #ff006e;
+            box-shadow: none;
+        }
+
+        .toggle-read-button {
+            width: 100%;
+            padding: 10px;
+            background: #ffe600;
+            color: #000;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0 #000;
+            font-family: 'Space Mono', monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+
+        .toggle-read-button:hover {
+            background: #000;
+            color: #ffe600;
+            border: 3px solid #ffe600;
+            box-shadow: none;
+        }
+
+        /* Update button spacing */
+        .book-card .remove-button {
+            margin-top: 0;
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>My Library</h1>
-        
-        <button id="new-book-btn">New Book</button>
-        
-        <dialog id="book-dialog">
+
+    <header>
+        <h1 id="library-title">My Personal Library</h1>
+        <button id="add-book-btn">Add New Book</button>
+    </header>
+
+    <button id="add-book-btn">Add New Book</button>
+
+    <dialog id="book-dialog">
+        <div class="dialog-header">
             <h2>Add New Book</h2>
-            <form id="book-form">
-                <label for="title">Title:</label>
-                <input type="text" id="title" required>
-                
-                <label for="author">Author:</label>
-                <input type="text" id="author" required>
-                
-                <label for="pages">Pages:</label>
-                <input type="number" id="pages" required>
-                
-                <div class="checkbox-container">
-                    <input type="checkbox" id="read">
-                    <label for="read">Read</label>
-                </div>
-                
-                <div class="form-buttons">
-                    <button type="button" id="cancel-btn">Cancel</button>
-                    <button type="submit">Add Book</button>
-                </div>
-            </form>
-        </dialog>
-        
-        <div class="library-container"></div>
-    </div>
+        </div>
+        <div class="dialog-content">
+            <input type="text" id="book-title" placeholder="Book Title">
+            <input type="text" id="book-author" placeholder="Author">
+            <input type="number" id="book-pages" placeholder="Number of Pages">
+            <textarea id="book-description" placeholder="Description (optional)" rows="3"></textarea>
+            <label>
+                <input type="checkbox" id="book-read"> I've read this book
+            </label>
+            <div class="dialog-buttons">
+                <button id="submit-book">Add Book</button>
+                <button id="cancel-book">Cancel</button>
+            </div>
+        </div>
+    </dialog>
+
+    <div id="library-container"></div>
+
     
     <script>
+
+        const dialog = document.getElementById('book-dialog');
+        const container = document.getElementById('library-container');
         const myLibrary = [];
 
-        function Book(title, author, pages, read) {
+        function Book(id, title, author, pages, read, description = '') {
             this.id = crypto.randomUUID();
             this.title = title;
             this.author = author;
             this.pages = pages;
             this.read = read;
+            this.description = description;
         }
 
-        function addBookToLibrary(title, author, pages, read) {
-            const newBook = new Book(title, author, pages, read);
+        Book.prototype.toggleReadStatus = function() {
+            this.read = !this.read;
+        };
+
+        function addBookToLibrary(title, author, pages, read, description = ''){
+            const newBook = new Book(null, title, author, pages, read, description);
             myLibrary.push(newBook);
+            saveToLocalStorage(); // Save after adding
+            return newBook;
         }
 
-        function displayBooks() {
-            const container = document.querySelector('.library-container');
-            container.innerHTML = '';
-
-            for (let i = 0; i < myLibrary.length; i++) {
+        function displayLibrary() {
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            
+            for (let i = 0; i < myLibrary.length; i++){
                 const book = myLibrary[i];
+
+                const card = document.createElement('div');
+                card.className = 'book-card';
+
+                // Upper container with book icon
+                const upperContainer = document.createElement('div');
+                upperContainer.className = 'upper-container';
                 
-                const bookCard = document.createElement('div');
-                bookCard.className = "book-card";
-                
+                const bookIcon = document.createElement('div');
+                bookIcon.className = 'book-icon';
+                bookIcon.textContent = '📚';
+                upperContainer.appendChild(bookIcon);
+                card.appendChild(upperContainer);
+
+                // Lower container with book info
+                const lowerContainer = document.createElement('div');
+                lowerContainer.className = 'lower-container';
+
                 const title = document.createElement('h3');
+                title.className = 'book-title';
                 title.textContent = book.title;
-                
-                const author = document.createElement('p');
-                const authorStrong = document.createElement('strong');
-                authorStrong.textContent = 'Author: ';
-                author.appendChild(authorStrong);
-                author.appendChild(document.createTextNode(book.author));
-                
-                const pages = document.createElement('p');
-                const pagesStrong = document.createElement('strong');
-                pagesStrong.textContent = 'Pages: ';
-                pages.appendChild(pagesStrong);
-                pages.appendChild(document.createTextNode(book.pages));
-                
-                const status = document.createElement('p');
-                const statusStrong = document.createElement('strong');
-                statusStrong.textContent = 'Status: ';
-                status.appendChild(statusStrong);
-                
-                const statusBadge = document.createElement('span');
-                statusBadge.className = book.read ? 'status-badge status-read' : 'status-badge status-unread';
-                statusBadge.textContent = book.read ? 'Read' : 'Not Read';
-                status.appendChild(statusBadge);
-                
-                const buttonContainer = document.createElement('div');
-                buttonContainer.className = 'book-buttons';
-                
-                const toggleButton = document.createElement('button');
-                toggleButton.className = 'toggle-read-btn';
-                toggleButton.textContent = 'Toggle Read';
-                toggleButton.onclick = function() {
-                    book.read = !book.read;
-                    displayBooks();
-                };
-                
-                const deleteButton = document.createElement('button');
-                deleteButton.className = 'delete-btn';
-                deleteButton.textContent = 'Delete';
-                deleteButton.onclick = function() {
-                    for (let j = 0; j < myLibrary.length; j++) {
-                        if (myLibrary[j].id === book.id) {
-                            myLibrary.splice(j, 1);
-                            break;
-                        }
+                lowerContainer.appendChild(title);
+
+                const author = document.createElement('h4');
+                author.className = 'book-author';
+                author.textContent = 'by ' + book.author;
+                lowerContainer.appendChild(author);
+
+                // Description in the dashed box (if it exists)
+                if (book.description && book.description.trim()) {
+                    const description = document.createElement('p');
+                    description.className = 'book-description';
+                    description.textContent = book.description;
+                    lowerContainer.appendChild(description);
+                }
+
+                const read = document.createElement('p');
+                read.className = 'book-read';
+                read.textContent = book.read ? '✓ Read' : '○ Not Read';
+                lowerContainer.appendChild(read);
+
+                card.appendChild(lowerContainer);
+
+                const pages = document.createElement('div');
+                pages.className = 'book-pages';
+                pages.textContent = book.pages + ' pages';
+                card.appendChild(pages);
+
+                // Toggle read status button
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'toggle-read-button';
+                toggleBtn.textContent = book.read ? 'Mark as Unread' : 'Mark as Read';
+                card.appendChild(toggleBtn);
+
+                // Remove button
+                const removebtn = document.createElement('button');
+                removebtn.className = 'remove-button';
+                removebtn.textContent = 'Remove Book';
+                card.appendChild(removebtn);
+
+                container.appendChild(card);
+
+                toggleBtn.addEventListener('click', () => {
+                    book.toggleReadStatus();
+                    saveToLocalStorage(); // Save after toggling
+                    displayLibrary();
+                });
+
+                // Update remove book event listener
+                removebtn.addEventListener('click', () => {
+                    const bookIndex = myLibrary.findIndex(b => b.id === book.id);
+                    if (bookIndex > -1) {
+                        myLibrary.splice(bookIndex, 1);
+                        saveToLocalStorage(); 
                     }
-                    displayBooks();
-                };
-                
-                buttonContainer.appendChild(toggleButton);
-                buttonContainer.appendChild(deleteButton);
-                
-                bookCard.appendChild(title);
-                bookCard.appendChild(author);
-                bookCard.appendChild(pages);
-                bookCard.appendChild(status);
-                bookCard.appendChild(buttonContainer);
-                
-                container.appendChild(bookCard);
+                    displayLibrary();
+                });
             }
         }
 
-        function openDialog() {
-            document.getElementById('book-dialog').showModal();
+        function clearForm() {
+            document.getElementById('book-title').value = '';
+            document.getElementById('book-author').value = '';
+            document.getElementById('book-pages').value = '';
+            document.getElementById('book-read').checked = false;
+            document.getElementById('book-description').value = ''; // Add this line
         }
 
-        function closeDialog() {
-            document.getElementById('book-dialog').close();
+        document.getElementById('add-book-btn').addEventListener('click', function() {
+            dialog.showModal();
+        })
+
+
+        document.getElementById('submit-book').addEventListener('click', function() {
+            const title = document.getElementById('book-title').value;
+            const author = document.getElementById('book-author').value;
+            const pages = document.getElementById('book-pages').value;
+            const read = document.getElementById('book-read').checked;
+            const description = document.getElementById('book-description').value; // Add this line
+
+            addBookToLibrary(title, author, pages, read, description); // Pass description
+
+            displayLibrary();
+            dialog.close();
+            clearForm();
+        });
+
+        document.getElementById('cancel-book').addEventListener('click', function() {
+            dialog.close();
+            clearForm();
+        })
+
+        function saveToLocalStorage() {
+            localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
         }
 
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            const title = document.getElementById('title').value;
-            const author = document.getElementById('author').value;
-            const pages = parseInt(document.getElementById('pages').value);
-            const read = document.getElementById('read').checked;
-            
-            addBookToLibrary(title, author, pages, read);
-            displayBooks();
-            
-            document.getElementById('book-form').reset();
-            closeDialog();
+        function loadFromLocalStorage() {
+            const savedBooks = localStorage.getItem('myLibrary');
+            if (savedBooks) {
+                const parsedBooks = JSON.parse(savedBooks);
+                // Recreate Book objects with their prototype methods
+                myLibrary.length = 0; // Clear the current array
+                parsedBooks.forEach(bookData => {
+                    const book = new Book(null, bookData.title, bookData.author, bookData.pages, bookData.read, bookData.description);
+                    book.id = bookData.id; // Preserve the original ID
+                    myLibrary.push(book);
+                });
+            }
         }
 
-        document.getElementById('new-book-btn').onclick = openDialog;
-        document.getElementById('cancel-btn').onclick = closeDialog;
-        document.getElementById('book-form').onsubmit = handleFormSubmit;
+        loadFromLocalStorage();
+        displayLibrary();
 
-        addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, true);
-        addBookToLibrary("1984", "George Orwell", 328, false);
-        addBookToLibrary("Pride and Prejudice", "Jane Austen", 432, true);
-
-        displayBooks();
     </script>
+
 </body>
 </html>
